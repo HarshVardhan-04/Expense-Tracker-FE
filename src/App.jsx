@@ -1,17 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import Nav from "./components/Nav";
+import Sidebar from "./components/Sidebar";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>HELLO</div>
-    </>
-  )
+    <div className="flex min-h-screen">
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Right Section */}
+      <div className="flex-1 flex flex-col">
+        <Nav />
+
+        {/* Main Content */}
+        <main className="flex-1 bg-gray-100 p-6">
+          <h1 className="text-3xl font-bold">Dashboard</h1>
+        </main>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
