@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,23 +61,23 @@ function Sidebar() {
         {/* Menu */}
         <ul className="p-5 space-y-2">
           <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            Dashboard
+            <NavLink to="/">Dashboard</NavLink>
           </li>
 
           <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            Expense
+            <NavLink to="/expense">Expense</NavLink>
           </li>
 
           <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            Income
+            <NavLink to="/income">Income</NavLink>
           </li>
 
           <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            Budget
+            <NavLink to="/report">Report</NavLink>
           </li>
 
           <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            Setting
+            <NavLink to="/setting">Setting</NavLink>
           </li>
 
           <li className="p-3 rounded hover:bg-red-600 cursor-pointer text-white">
@@ -86,6 +87,8 @@ function Sidebar() {
 
         <div className="absolute bottom-0 w-full border-t border-gray-700 p-4 text-center text-xs text-gray-400">
           © 2026 Expense Tracker
+          <br />
+              Track today, save tomorrow.
         </div>
       </aside>
     </>

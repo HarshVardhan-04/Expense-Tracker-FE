@@ -1,6 +1,6 @@
 import React from "react";
 
-function TransTable() {
+function TransTable({ header = " ", type = "Expense"}) {
   return (
     <div className="w-full bg-slate-950 p-4 sm:p-7">
 
@@ -45,7 +45,7 @@ function TransTable() {
                 <th className="p-3">Category</th>
                 <th className="p-3">Description</th>
                 <th className="p-3">Amount</th>
-                <th className="p-3">Type</th>
+                <th className="p-3">{header}</th>
               </tr>
             </thead>
 
@@ -59,7 +59,7 @@ function TransTable() {
                   <td className="p-3 text-white">Party</td>
                   <td className="p-3 text-white">Birthday Celebration</td>
                   <td className="p-3 text-white">2000</td>
-                  <td className="p-3 text-white">Expense</td>
+                  <td className="p-3 text-white">{type}</td>
                 </tr>
               ))}
             </tbody>
