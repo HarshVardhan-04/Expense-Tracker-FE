@@ -1,9 +1,42 @@
-import React from 'react'
+import { Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-function ProtectedRoute() {
-  return (
-    <div>ProtectedRoute</div>
-  )
+function ProtectedRoute({ children }) {
+  const [loading, setLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
+  const checkLogin = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/dashboard", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      setIsLoggedIn(false);
+    }
+
+    setLoading(false);
+  };
+
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (!isLoggedIn) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
 }
 
-export default ProtectedRoute
+export default ProtectedRoute;
