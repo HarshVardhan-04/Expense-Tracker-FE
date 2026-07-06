@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -6,8 +7,10 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const handleRegister = async (e) => {
     e.preventDefault();
+
 
     try {
       const response = await fetch("http://localhost:5000/api/register", {
@@ -32,6 +35,8 @@ function Register() {
       setAge("");
       setEmail("");
       setPassword("");
+      navigate("/login");
+
     } catch (error) {
       console.log(error);
       alert("Something went wrong!");

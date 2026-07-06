@@ -17,10 +17,14 @@ function App() {
       <div>
           <Routes>
             <Route path="/dashboard" element={<ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>} />
-            <Route path="/dashboard/expense" element={<Expense />} />
-            <Route path="/income" element={<Income />} />
+                                                  <Dashboard />
+                                              </ProtectedRoute>} />
+            <Route path="/expense" element={<ProtectedRoute>
+                                                  <Expense />
+                                              </ProtectedRoute>} />
+            <Route path="/income" element={<ProtectedRoute>
+                                                  <Income />
+                                              </ProtectedRoute>} />
             <Route path="/" element={<Home/>} />
             <Route path="/register" element={<Register/>} />
             <Route path="/login" element={<Login/>} />

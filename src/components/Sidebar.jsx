@@ -7,6 +7,24 @@ function Sidebar() {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
+  const handleLogout = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/logout", {
+                method: "GET",
+                credentials: "include",
+            });
+
+            const data = await response.json();
+
+            alert(data.message);
+
+            navigate("/login");
+        } catch (error) {
+            console.log(error);
+            alert("Logout Failed");
+        }
+    };
+
   return (
     <>
       {/* Mobile Top Bar */}
@@ -81,7 +99,11 @@ function Sidebar() {
           </li>
 
           <li className="p-3 rounded hover:bg-red-600 cursor-pointer text-white">
-            Logout
+             <form onSubmit={handleLogout}>
+              <button type="submit">
+                        Logout
+              </button>
+             </form>
           </li>
         </ul>
 
