@@ -79,7 +79,7 @@ function Sidebar() {
         {/* Menu */}
         <ul className="p-5 space-y-2">
           <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            <NavLink to="/">Dashboard</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
           </li>
 
           <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">

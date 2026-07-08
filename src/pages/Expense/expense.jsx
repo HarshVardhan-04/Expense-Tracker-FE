@@ -1,51 +1,98 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav";
 import Sidebar from "../../components/Sidebar";
 import Stats from "../../components/Stats";
 import TransTable from "../../components/TransTable";
 import Input from "./input";
 
-import { FaArrowTrendUp, FaArrowTrendDown, FaWallet } from "react-icons/fa6";
+import {
+  FaWallet
+} from "react-icons/fa6";
 
-function expense() {
+function Expense() {
+
+  const [expenses, setExpenses] = useState([]);
+
+  const fetchExpenses = async () => {
+
+    try {
+
+      const response = await fetch("http://localhost:5000/api/expenses", {
+        credentials: "include"
+      });
+
+
+      const data = await response.json();
+
+      
+      setExpenses(data);
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+
+  };
+
+  useEffect(() => {
+
+    fetchExpenses();
+
+  }, []);
+
   return (
     <div className="flex min-h-screen bg-black">
-      {/* Sidebar */}
+
       <Sidebar />
 
-      {/* Right Section */}
       <div className="flex-1 flex flex-col">
-        <Nav title='Expense'/>
 
+        <Nav title="Expense" />
 
-        {/* Main Content */}
-        <main className=" bg-gray-100 ">
+        <main className="bg-gray-100">
+
           <div className="flex">
-             <Stats
-          Icon={FaWallet}
-          iconColor="text-white"
-          label="Total Expense"
-          amount="12000"
-          />
-          <Stats
-          Icon={FaWallet}
-          iconColor="text-white"
-          label="Total Income Entries"
-          amount="5"
-          />
+
+            <Stats
+              Icon={FaWallet}
+              iconColor="text-white"
+              label="Total Expense"
+              amount="12000"
+            />
+
+            <Stats
+              Icon={FaWallet}
+              iconColor="text-white"
+              label="Total Expense Entries"
+              amount={expenses.length}
+            />
+
           </div>
 
-           <div className=' p-8 bg-[#050b1d] '>
-            <Input />
-            
-           </div>
-           
-            <TransTable type={<button className="bg-violet-500 px-3 py-1 rounded">DELETE</button>}/>
-          
+          {/* This is used to reload the table whenever we login */}
+          <div className="p-8 bg-[#050b1d]">
+
+            <Input fetchExpenses={fetchExpenses} />
+
+          </div>
+
+          <TransTable
+            header="Action"
+            transactions={expenses}
+            type={
+              <button className="bg-red-500 px-3 py-1 rounded">
+                Delete
+              </button>
+            }
+          />
+
         </main>
+
       </div>
+
     </div>
-  )
+  );
 }
 
-export default expense
+export default Expense;

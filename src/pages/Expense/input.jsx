@@ -1,58 +1,113 @@
-import React from 'react'
-function Input() {
-  return (
-    <div className=" w-full bg-[#151f38] rounded-xl p-4 sm:p-7 shadow-lg border border-slate-700 ">
+import React, { useState } from "react";
 
+function Input({ fetchExpenses }) {
+  const [amount, setAmount] = useState("");
+  const [date, setDate] = useState("");
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleAddExpense = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/api/add", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount,
+          date,
+          category,
+          description,
+        }),
+      });
+
+      const data = await response.json();
+
+      alert(data.message);
+
+      // Reload the table
+      await fetchExpenses();
+
+      // Clear form
+      setAmount("");
+      setDate("");
+      setCategory("");
+      setDescription("");
+
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong!");
+    }
+  };
+
+  return (
+    <div className="w-full bg-[#151f38] rounded-xl p-7 shadow-lg border border-slate-700">
       <h2 className="text-2xl font-bold text-white mb-6">
-        Add Expenses
+        Add Expense
       </h2>
 
-      <div className="grid grid-cols-2 gap-5">
+      <form onSubmit={handleAddExpense}>
+        <div className="grid grid-cols-2 gap-5">
 
-        <input
-          type="number"
-          placeholder="Amount"
-          className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500"
-        />
+          <input
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500"
+            required
+          />
 
-        <input
-          type="date"
-          className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500"
-        />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500"
+            required
+          />
 
-        <input
-          type="text"
-          list="categories"
-          placeholder="Category"
-          className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500"
-        />
+          <input
+            type="text"
+            list="categories"
+            placeholder="Category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500"
+            required
+          />
 
-        <datalist id="categories">
-          <option value="Food" />
-          <option value="Transport" />
-          <option value="Shopping" />
-          <option value="Bills" />
-          <option value="Entertainment" />
-          <option value="Healthcare" />
-        </datalist>
+          <datalist id="categories">
+            <option value="Food" />
+            <option value="Transport" />
+            <option value="Shopping" />
+            <option value="Bills" />
+            <option value="Entertainment" />
+            <option value="Healthcare" />
+          </datalist>
 
-        <input
-          type="text"
-          placeholder="Description"
-          className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500 col-span-2"
-        />
+          <input
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="bg-[#25314d] text-white p-3 rounded-lg outline-none focus:ring-2 focus:ring-violet-500 col-span-2"
+            required
+          />
 
-         
-        
+        </div>
 
-      </div>
-
-      <div className="mt-6 flex justify-end">
-        <button className="bg-violet-500 hover:bg-violet-600 transition px-8 py-3 rounded-lg text-white font-semibold">
-          Add 
-        </button>
-      </div>
-
+        <div className="mt-6 flex justify-end">
+          <button
+            type="submit"
+            className="bg-violet-500 hover:bg-violet-600 transition px-8 py-3 rounded-lg text-white font-semibold"
+          >
+            Add Expense
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

@@ -1,20 +1,22 @@
 import React from "react";
 
-function TransTable({ header = " ", type = "Expense"}) {
+function TransTable({
+  header = "",
+  type = "",
+  transactions = [],
+}) {
   return (
     <div className="w-full bg-slate-950 p-4 sm:p-7">
 
-      {/* Container */}
       <div className="border border-gray-700 rounded-lg bg-slate-900 p-4 sm:p-16">
 
-        {/* Header Section */}
+        {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
 
           <h1 className="text-xl sm:text-2xl text-white font-semibold">
             Recent Transactions
           </h1>
 
-          {/* Search + Buttons */}
           <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
 
             <input
@@ -32,42 +34,79 @@ function TransTable({ header = " ", type = "Expense"}) {
             </button>
 
           </div>
+
         </div>
 
-        {/* Table Wrapper (IMPORTANT for responsiveness) */}
         <div className="mt-6 overflow-x-auto">
 
-          <table className="w-full min-w-[600px] text-left border-collapse">
+          <table className="w-full table-fixed border-collapse">
 
             <thead className="bg-slate-800 text-violet-300">
               <tr>
-                <th className="p-3">Date</th>
-                <th className="p-3">Category</th>
-                <th className="p-3">Description</th>
-                <th className="p-3">Amount</th>
-                <th className="p-3">{header}</th>
+                <th className="p-3 text-left">Date</th>
+                <th className="p-3 text-left">Category</th>
+                <th className="p-3 text-left">Description</th>
+                <th className="p-3 text-left">Amount</th>
+                <th className="p-3 text-left">{header}</th>
               </tr>
             </thead>
 
-            <tbody>
-              {Array(5).fill(0).map((_, i) => (
-                <tr
-                  key={i}
-                  className="border-b border-gray-700 hover:bg-slate-800 transition"
-                >
-                  <td className="p-3 text-white">26/06/2026</td>
-                  <td className="p-3 text-white">Party</td>
-                  <td className="p-3 text-white">Birthday Celebration</td>
-                  <td className="p-3 text-white">2000</td>
-                  <td className="p-3 text-white">{type}</td>
+            <tbody >
+
+              {transactions.length > 0 ? (
+
+                transactions.map((item) => (
+
+                  <tr
+                    key={item._id}
+                    className=" border-b border-gray-700 hover:bg-slate-800"
+                  >
+
+                    <td className="p-3 text-white">
+                      {new Date(item.date).toLocaleDateString()}
+                    </td>
+
+                    <td className="p-3 text-white">
+                      {item.category}
+                    </td>
+
+                    <td className="p-3 text-white">
+                      {item.description}
+                    </td>
+
+                    <td className="p-3 text-white">
+                      ₹ {item.amount}
+                    </td>
+
+                    <td className="p-3 text-white">
+                      {type}
+                    </td>
+
+                  </tr>
+
+                ))
+
+              ) : (
+
+                <tr>
+                  <td
+                    colSpan="5"
+                    className="text-center text-gray-400 p-5"
+                  >
+                    No Transactions Found
+                  </td>
                 </tr>
-              ))}
+
+              )}
+
             </tbody>
 
           </table>
 
         </div>
+
       </div>
+
     </div>
   );
 }
