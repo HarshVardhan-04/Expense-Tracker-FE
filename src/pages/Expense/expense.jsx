@@ -5,9 +5,7 @@ import Stats from "../../components/Stats";
 import TransTable from "../../components/TransTable";
 import Input from "./input";
 
-import {
-  FaWallet
-} from "react-icons/fa6";
+import {FaWallet} from "react-icons/fa6";
 
 function Expense() {
 
@@ -41,6 +39,10 @@ function Expense() {
 
   }, []);
 
+  const totalExpense = expenses.reduce((sum, item) => {
+    return sum + Number(item.amount);
+  }, 0);
+
   return (
     <div className="flex min-h-screen bg-black">
 
@@ -58,7 +60,7 @@ function Expense() {
               Icon={FaWallet}
               iconColor="text-white"
               label="Total Expense"
-              amount="12000"
+              amount={totalExpense}
             />
 
             <Stats
@@ -78,7 +80,7 @@ function Expense() {
           </div>
 
           <TransTable
-            header="Action"
+            showType={false}
             transactions={expenses}
             type={
               <button className="bg-red-500 px-3 py-1 rounded">

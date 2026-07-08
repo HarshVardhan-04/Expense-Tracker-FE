@@ -21,7 +21,7 @@ function Input({ fetchExpenses }) {
           date,
           category,
           description,
-          type:"Expense",
+          type:"Income",
         }),
       });
 
@@ -47,7 +47,7 @@ function Input({ fetchExpenses }) {
   return (
     <div className="w-full bg-[#151f38] rounded-xl p-7 shadow-lg border border-slate-700">
       <h2 className="text-2xl font-bold text-white mb-6">
-        Add Expense
+        Add Income
       </h2>
 
       <form onSubmit={handleAddExpense}>
@@ -105,7 +105,7 @@ function Input({ fetchExpenses }) {
             type="submit"
             className="bg-violet-500 hover:bg-violet-600 transition px-8 py-3 rounded-lg text-white font-semibold"
           >
-            Add Expense
+            Add Income
           </button>
         </div>
       </form>

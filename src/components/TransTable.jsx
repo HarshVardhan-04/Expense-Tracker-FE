@@ -1,8 +1,7 @@
 import React from "react";
 
 function TransTable({
-  header = "",
-  type = "",
+  showType,
   transactions = [],
 }) {
   return (
@@ -47,7 +46,11 @@ function TransTable({
                 <th className="p-3 text-left">Category</th>
                 <th className="p-3 text-left">Description</th>
                 <th className="p-3 text-left">Amount</th>
-                <th className="p-3 text-left">{header}</th>
+                <th className="p-3 text-left">
+                  <th>
+                        {showType ? "Type" : "Action"}
+                  </th>
+                </th>
               </tr>
             </thead>
 
@@ -79,8 +82,14 @@ function TransTable({
                     </td>
 
                     <td className="p-3 text-white">
-                      {type}
-                    </td>
+                            {showType ? (
+                                item.type
+                            ) : (
+                                <button className="bg-red-500 px-3 py-1 rounded">
+                                    Delete
+                                </button>
+                            )}
+                      </td>
 
                   </tr>
 

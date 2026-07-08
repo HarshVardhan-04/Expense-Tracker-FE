@@ -1,13 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav";
 import Sidebar from "../../components/Sidebar";
 import Stats from "../../components/Stats";
 import TransTable from "../../components/TransTable";
-import Input from "../Expense/input"
+import Input from "./incomeInput";
 
 import { FaArrowTrendUp, FaArrowTrendDown, FaWallet } from "react-icons/fa6";
 
 function income() {
+  const[income ,setIncome] = useState([]);
+  const fetchIncome = async ()=>{
+    try{
+      
+      const response = await fetch("http://localhost:5000/api/income" ,{
+        credentials: "include",
+      });
+
+      const data = await response.json();
+
+      setIncome(data);
+
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+   useEffect(() => {
+  
+      fetchIncome();
+  
+    }, []);
+
+    const totalIncome = income.reduce((sum, item) => {
+      return sum + Number(item.amount);
+    }, 0);
+
   return (
     <div className="flex min-h-screen bg-black">
       {/* Sidebar */}
@@ -24,21 +51,29 @@ function income() {
           Icon={FaWallet}
           iconColor="text-white"
           label="Total Income"
-          amount="12000"
+          amount={totalIncome}
           />
           <Stats
           Icon={FaWallet}
           iconColor="text-white"
           label="Total Income entries"
-          amount="10"
+          amount={income.length}
           />
           </div>
          
           <div className=' p-8 bg-[#050b1d] '>
-            <Input />
+            <Input fetchExpenses = {fetchIncome}/>
           </div>
 
-          <TransTable type={<button className="bg-violet-500 px-3 py-1 rounded">DELETE</button>}/>
+          <TransTable
+            showType={false}
+            transactions={income}
+            type={
+              <button className="bg-red-500 px-3 py-1 rounded">
+                Delete
+              </button>
+            }
+          />
         </main>
       </div>
     </div>
