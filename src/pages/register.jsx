@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [name, setName] = useState("");
@@ -110,6 +111,13 @@ function Register() {
             Create Account
           </button>
         </form>
+
+        <div className="text-white text-center">
+                    <h5 className="p-3">Already have an account </h5>
+                    <Link to="/login" className="text-l rounded-md border-2 border-blue-500 px-5 py-2 hover:bg-gray-600 hover:text-xl">
+                            Login Now
+                    </Link>
+        </div>
       </div>
     </div>
   );

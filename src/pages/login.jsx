@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Login() {
 
@@ -84,6 +85,13 @@ function Login() {
                     </button>
 
                 </form>
+
+                <div className="text-white text-center">
+                    <h5 className="p-3">Don't have any account </h5>
+                    <Link to="/" className="text-l rounded-md border-2 border-blue-500 px-5 py-2 hover:bg-gray-600 hover:text-xl">
+                            Create new account
+                    </Link>
+                </div>
 
             </div>
 
