@@ -18,7 +18,7 @@ function Sidebar() {
 
             alert(data.message);
 
-            navigate("/login");
+            navigate("/");
         } catch (error) {
             console.log(error);
             alert("Logout Failed");

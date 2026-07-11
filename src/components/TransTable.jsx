@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function TransTable({
   showType,
   transactions = [],
 }) {
+
+  const[search , setSearch] = useState("");
+  const [searchResults, setSearchResults] = useState(transactions);
+
+  
+
+  const handleSearch = async ()=>{
+    if (!search.trim()) {
+        setSearchResults(transactions);
+        return;
+    }
+    const res = await fetch(`http://localhost:5000/api/search/${search}`);
+
+    const data = await res.json();
+    setSearchResults(data);
+  }
+  useEffect(() => {
+    setSearchResults(transactions);
+}, [transactions]);
+
   return (
     <div className="w-full bg-slate-950 p-4 sm:p-7">
 
@@ -20,11 +40,15 @@ function TransTable({
 
             <input
               type="text"
+               value={search}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search..."
               className="w-full sm:w-64 h-10 px-3 rounded bg-white text-black outline-none"
             />
 
-            <button className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
+            <button 
+            onClick={handleSearch}
+            className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
               Search
             </button>
 
@@ -47,18 +71,15 @@ function TransTable({
                 <th className="p-3 text-left">Description</th>
                 <th className="p-3 text-left">Amount</th>
                 <th className="p-3 text-left">
-                  <th>
                         {showType ? "Type" : "Action"}
-                  </th>
                 </th>
               </tr>
             </thead>
 
             <tbody >
 
-              {transactions.length > 0 ? (
-
-                transactions.map((item) => (
+              {searchResults.length > 0 ? (
+              searchResults.map((item) => (
 
                   <tr
                     key={item._id}
