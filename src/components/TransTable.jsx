@@ -26,6 +26,7 @@ const handleFilter = async (type) => {
 };
 
 
+
   const handleSearch = async ()=>{
     if (!search.trim()) {
         setSearchResults(transactions);
@@ -37,9 +38,30 @@ const handleFilter = async (type) => {
     setSearchResults(data);
   }
 
+
+  const handleDelete = async(id)=>{
+    const confirmDelete = window.confirm(
+        "Do you want to delete this transaction?"
+    );
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    try{
+      const res = await fetch(`http://localhost:5000/api/search/${id}`);
+      alert("Transaction Deleted successfully");
+    }
+    catch(err){
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     setSearchResults(transactions);
 }, [transactions]);
+
+
 
   return (
     <div className="w-full bg-slate-950 p-4 sm:p-7">
@@ -48,39 +70,40 @@ const handleFilter = async (type) => {
 
         {/* Header */}
         <div>
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
 
-          <h1 className="text-xl sm:text-2xl text-white font-semibold">
-            Recent Transactions
-          </h1>
-        <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+              <h1 className="text-xl sm:text-2xl text-white font-semibold">
+                  Recent Transactions
+              </h1>
+            <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
 
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search..."
-              className="w-full sm:w-64 h-10 px-3 rounded bg-white text-black outline-none"
-            />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search..."
+                className="w-full sm:w-64 h-10 px-3 rounded bg-white text-black outline-none"
+              />
 
-            <button 
-            onClick={handleSearch}
-            className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
-              Search
-            </button>
+              <button 
+                onClick={handleSearch}
+                className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
+                  Search
+                </button>
 
-            <button onClick={() => setFilter(!isFilter)}
-              className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
-              Filter
-            </button>
+              <button onClick={() => setFilter(!isFilter)}
+                className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
+                  Filter
+              </button>
+
+            </div>
 
           </div>
 
-        </div>
-        <Filter
-        isFilter={isFilter}
-          handleFilter={handleFilter}
-        />
+            <Filter
+            isFilter={isFilter}
+            handleFilter={handleFilter}
+            />
 
         </div>
 
@@ -130,7 +153,9 @@ const handleFilter = async (type) => {
                             {showType ? (
                                 item.type
                             ) : (
-                                <button className="bg-red-500 px-3 py-1 rounded">
+                                <button 
+                                onClick={()=>handleDelete(item._id)}
+                                className="bg-red-500 px-3 py-1 rounded">
                                     Delete
                                 </button>
                             )}
