@@ -1,14 +1,30 @@
 import React, { useEffect, useState } from "react";
+import Filter from "./Filter";
 
 function TransTable({
   showType,
   transactions = [],
 }) {
 
-  const[search , setSearch] = useState("");
+  const [isFilter, setFilter] = useState(false);
+  const [search , setSearch] = useState("");
   const [searchResults, setSearchResults] = useState(transactions);
 
-  
+const handleFilter = async (type) => {
+    if (type === "All") {
+        setSearchResults(transactions);
+        return;
+    }
+
+    const response = await fetch(
+        `http://localhost:5000/api/filter/${type}`
+    );
+
+    const data = await response.json();
+
+    setSearchResults(data);
+};
+
 
   const handleSearch = async ()=>{
     if (!search.trim()) {
@@ -20,6 +36,7 @@ function TransTable({
     const data = await res.json();
     setSearchResults(data);
   }
+
   useEffect(() => {
     setSearchResults(transactions);
 }, [transactions]);
@@ -30,17 +47,17 @@ function TransTable({
       <div className="border border-gray-700 rounded-lg bg-slate-900 p-4 sm:p-16">
 
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div>
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
 
           <h1 className="text-xl sm:text-2xl text-white font-semibold">
             Recent Transactions
           </h1>
-
-          <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
+        <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
 
             <input
               type="text"
-               value={search}
+              value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search..."
               className="w-full sm:w-64 h-10 px-3 rounded bg-white text-black outline-none"
@@ -52,11 +69,18 @@ function TransTable({
               Search
             </button>
 
-            <button className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
+            <button onClick={() => setFilter(!isFilter)}
+              className="h-10 px-4 rounded bg-violet-400 hover:bg-violet-500 text-white">
               Filter
             </button>
 
           </div>
+
+        </div>
+        <Filter
+        isFilter={isFilter}
+          handleFilter={handleFilter}
+        />
 
         </div>
 
