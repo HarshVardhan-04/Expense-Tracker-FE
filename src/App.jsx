@@ -9,6 +9,7 @@ import Home from "./pages/home.jsx";
 import Register from "./pages/register.jsx";
 import Login from "./pages/login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Report from "./pages/Reports/report"
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
                                               </ProtectedRoute>} />
             <Route path="/income" element={<ProtectedRoute>
                                                   <Income />
+                                              </ProtectedRoute>} />
+            <Route path="/report" element={<ProtectedRoute>
+                                                  <Report />
                                               </ProtectedRoute>} />
             <Route path="/" element={<Home/>} />
             <Route path="/register" element={<Register/>} />

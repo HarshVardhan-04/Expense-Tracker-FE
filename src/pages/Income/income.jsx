@@ -6,6 +6,7 @@ import TransTable from "../../components/TransTable";
 import Input from "./incomeInput";
 
 import { FaArrowTrendUp, FaArrowTrendDown, FaWallet } from "react-icons/fa6";
+import PieChart  from "../../components/Piecharts";
 
 function income() {
   const[income ,setIncome] = useState([]);
@@ -41,11 +42,11 @@ function income() {
       <Sidebar />
 
       {/* Right Section */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col lg:ml-80">
         <Nav title='Income'/>
 
         {/* Main Content */}
-        <main className=" bg-gray-100 ">
+        <main className="  bg-[#050b1d] ">
           <div className="flex">
              <Stats
           Icon={FaWallet}
@@ -74,6 +75,12 @@ function income() {
               </button>
             }
           />
+
+          <div className="w-full h-[500px] rounded-md">
+            <PieChart 
+            items={income}
+            />
+          </div>
         </main>
       </div>
     </div>

@@ -66,7 +66,7 @@ const handleFilter = async (type) => {
   return (
     <div className="w-full bg-slate-950 p-4 sm:p-7">
 
-      <div className="border border-gray-700 rounded-lg bg-slate-900 p-4 sm:p-16">
+      <div className="border border-gray-700 rounded-lg  bg-[#151f38] p-4 sm:p-16">
 
         {/* Header */}
         <div>

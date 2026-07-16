@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
+import Sidebar from '../../components/Sidebar'
 import Nav from "../../components/Nav";
-import Sidebar from "../../components/Sidebar";
 import Stats from "../../components/Stats";
-import TransTable from "../../components/TransTable";
 
 import { FaArrowTrendUp, FaArrowTrendDown, FaWallet } from "react-icons/fa6";
+import LineGraph from "../../components/LineGraph";
 
-function dashboard() {
-  const [transactions, setTransactions] = useState([]);
+function report() {
+    const [transactions, setTransactions] = useState([]);
+    
+    const fetchDashboard = async () => {
+    
+        const response = await fetch("http://localhost:5000/api/dashboard", {
+            credentials: "include"
+        });
+    
+        const data = await response.json();
+    
+        setTransactions(data);
+    };
 
-const fetchDashboard = async () => {
-
-    const response = await fetch("http://localhost:5000/api/dashboard", {
-        credentials: "include"
-    });
-
-    const data = await response.json();
-
-    setTransactions(data);
-};
-
-useEffect(() => {
+    useEffect(() => {
     fetchDashboard();
 }, []);
 
-  const totalExpense = transactions
+     const totalExpense = transactions
   .filter(item => item.type === "Expense")
   .reduce((sum, item) => sum + Number(item.amount), 0);
 
@@ -32,6 +32,28 @@ useEffect(() => {
   .filter(item => item.type === "Income")
   .reduce((sum, item) => sum + Number(item.amount), 0);
 
+
+  const graphData = [];
+
+for (let i = 1; i <= 31; i++) {
+  graphData.push({
+    day: i,
+    income: 0,
+    expense: 0,
+  });
+}
+
+transactions.forEach((transaction) => {
+  const day = new Date(transaction.date).getDate();
+
+  if (transaction.type === "Income") {
+    graphData[day - 1].income += transaction.amount;
+  } else {
+    graphData[day - 1].expense += transaction.amount;
+  }
+});
+
+    
   return (
     <div className="flex min-h-screen bg-black">
       {/* Sidebar */}
@@ -39,7 +61,7 @@ useEffect(() => {
 
       {/* Right Section */}
       <div className="flex-1 flex flex-col lg:ml-80">
-        <Nav />
+        <Nav title='Reports'/>
 
         {/* Main Content */}
         <main className=" bg-gray-100 ">
@@ -59,20 +81,21 @@ useEffect(() => {
           <Stats
           Icon={FaWallet}
           iconColor="text-white"
-          label="Remaining Money"
+          label="Net Savings"
           amount={totalIncome - totalExpense}
-          />
+          />   
           </div>
          
+         <div className="p-5 bg-slate-950">
+          <LineGraph 
+          data={graphData}
+          />
 
-         <TransTable
-            showType={true}
-            transactions={transactions}
-         />
-        </main>
+         </div>
+        </main> 
       </div>
     </div>
   )
 }
 
-export default dashboard
+export default report

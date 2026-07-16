@@ -49,25 +49,26 @@ function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`
-          fixed lg:static
-          top-16 lg:top-0
-          left-0
-          h-[calc(100vh-4rem)] lg:h-screen
-          w-80
-          bg-gray-900
-          text-white
-          z-50
-          transform
-          transition-transform
-          duration-300
-          ${
-            isOpen
-              ? "translate-x-0"
-              : "-translate-x-full lg:translate-x-0"
-          }
-        `}
-      >
+  className={`
+    fixed
+    top-16 lg:top-0
+    left-0
+    h-[calc(100vh-4rem)] lg:h-screen
+    w-80
+    bg-gray-900
+    text-white
+    z-50
+    overflow-y-auto
+    transform
+    transition-transform
+    duration-300
+    ${
+      isOpen
+        ? "translate-x-0"
+        : "-translate-x-full lg:translate-x-0"
+    }
+  `}
+>
         {/* Desktop Title */}
         <div className="hidden lg:block">
           <h1 className="text-3xl font-bold p-6">

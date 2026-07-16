@@ -6,6 +6,7 @@ import TransTable from "../../components/TransTable";
 import Input from "./input";
 
 import {FaWallet} from "react-icons/fa6";
+import PieChart  from "../../components/Piecharts";
 
 function Expense() {
 
@@ -48,11 +49,11 @@ function Expense() {
 
       <Sidebar />
 
-      <div className="flex-1 flex flex-col">
+     <div className="flex-1 flex flex-col lg:ml-80">
 
         <Nav title="Expense" />
 
-        <main className="bg-gray-100">
+        <main className=" bg-slate-950  min-h-screen overflow-y-auto">
 
           <div className="flex">
 
@@ -73,7 +74,7 @@ function Expense() {
           </div>
 
           {/* This is used to reload the table whenever we login */}
-          <div className="p-8 bg-[#050b1d]">
+          <div className="p-8">
 
             <Input fetchExpenses={fetchExpenses} />
 
@@ -88,6 +89,11 @@ function Expense() {
               </button>
             }
           />
+
+          <div className="w-full h-[500px] rounded-md">
+            <PieChart
+            items = {expenses} />
+          </div>
 
         </main>
 
