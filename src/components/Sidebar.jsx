@@ -1,29 +1,12 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import Logout from "./Logout";
 
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
-
-  const handleLogout = async () => {
-        try {
-            const response = await fetch("http://localhost:5000/api/logout", {
-                method: "GET",
-                credentials: "include",
-            });
-
-            const data = await response.json();
-
-            alert(data.message);
-
-            navigate("/");
-        } catch (error) {
-            console.log(error);
-            alert("Logout Failed");
-        }
-    };
 
   return (
     <>
@@ -100,11 +83,7 @@ function Sidebar() {
           </li>
 
           <li className="p-3 rounded hover:bg-red-600 cursor-pointer text-white">
-             <form onSubmit={handleLogout}>
-              <button type="submit">
-                        Logout
-              </button>
-             </form>
+             <Logout />
           </li>
         </ul>
 

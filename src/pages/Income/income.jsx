@@ -79,6 +79,7 @@ function income() {
           <div className="w-full h-[500px] rounded-md">
             <PieChart 
             items={income}
+            head="Income "
             />
           </div>
         </main>

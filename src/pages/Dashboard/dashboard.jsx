@@ -39,7 +39,7 @@ useEffect(() => {
 
       {/* Right Section */}
       <div className="flex-1 flex flex-col lg:ml-80">
-        <Nav />
+        <Nav/>
 
         {/* Main Content */}
         <main className=" bg-gray-100 ">

@@ -9,7 +9,8 @@ import Home from "./pages/home.jsx";
 import Register from "./pages/register.jsx";
 import Login from "./pages/login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Report from "./pages/Reports/report"
+import Report from "./pages/Reports/report";
+import Setting from "./pages/Setting/setting";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
                                               </ProtectedRoute>} />
             <Route path="/report" element={<ProtectedRoute>
                                                   <Report />
+                                              </ProtectedRoute>} />
+            <Route path="/setting" element={<ProtectedRoute>
+                                                  <Setting />
                                               </ProtectedRoute>} />
             <Route path="/" element={<Home/>} />
             <Route path="/register" element={<Register/>} />

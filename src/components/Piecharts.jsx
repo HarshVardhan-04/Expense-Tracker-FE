@@ -13,7 +13,7 @@ const generateColor = (index) => {
   return `hsl(${index * 60}, 70%, 50%)`;
 };
 
-function Piecharts({items  = []})
+function Piecharts({items  = [] , head})
  {
   //Grouping same data for ex- food - 100 , bills - 1000 ,food - 300
   
@@ -39,7 +39,7 @@ function Piecharts({items  = []})
     <div className="w-full bg-slate-950 p-7">
       <div className="border border-gray-700 rounded-lg bg-slate-900 p-8">
         <h2 className="text-2xl font-semibold text-white mb-6">
-          Expense Distribution
+          {head} Distribution
         </h2>
 
         <div style={{ width: "100%", height: 500 }}>

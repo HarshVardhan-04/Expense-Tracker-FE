@@ -91,8 +91,9 @@ function Expense() {
           />
 
           <div className="w-full h-[500px] rounded-md">
-            <PieChart
-            items = {expenses} />
+            <PieChart 
+            items = {expenses}
+            head="Expense" />
           </div>
 
         </main>

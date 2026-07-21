@@ -100,6 +100,7 @@ const handleFilter = async (type) => {
 
           </div>
 
+            {/* This is for the option box opens after clicking the filter button */}
             <Filter
             isFilter={isFilter}
             handleFilter={handleFilter}
