@@ -3,6 +3,12 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import Logout from "./Logout";
 
+import { MdDashboard } from "react-icons/md";
+import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
+import { HiOutlineChartBar } from "react-icons/hi2";
+import { IoSettingsOutline } from "react-icons/io5";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+
 function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -61,31 +67,101 @@ function Sidebar() {
         </div>
 
         {/* Menu */}
-        <ul className="p-5 space-y-2">
-          <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            <NavLink to="/dashboard">Dashboard</NavLink>
-          </li>
+       <ul className="p-5 space-y-2">
 
-          <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            <NavLink to="/expense">Expense</NavLink>
-          </li>
+            <li>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 p-3 rounded-lg transition-all duration-200
+                  ${
+                    isActive
+                      ? "bg-blue-600/20 text-blue-400 border-l-4 border-blue-500"
+                      : "hover:bg-gray-800 text-gray-200"
+                  }`
+                }
+              >
+                <MdDashboard className="text-xl" />
+                <span>Dashboard</span>
+              </NavLink>
+            </li>
 
-          <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            <NavLink to="/income">Income</NavLink>
-          </li>
+            <li>
+              <NavLink
+                to="/expense"
+                className={({ isActive }) =>
+                  `flex items-center gap-3 p-3 rounded-lg transition-all duration-200
+                  ${
+                    isActive
+                      ? "bg-red-600/20 text-red-400 border-l-4 border-red-500"
+                      : "hover:bg-gray-800 text-gray-200"
+                  }`
+                }
+              >
+                <FaArrowTrendDown className="text-lg" />
+                <span>Expense</span>
+              </NavLink>
+            </li>
 
-          <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            <NavLink to="/report">Report</NavLink>
-          </li>
+  <li>
+    <NavLink
+      to="/income"
+      className={({ isActive }) =>
+        `flex items-center gap-3 p-3 rounded-lg transition-all duration-200
+        ${
+          isActive
+            ? "bg-green-600/20 text-green-400 border-l-4 border-green-500"
+            : "hover:bg-gray-800 text-gray-200"
+        }`
+      }
+    >
+      <FaArrowTrendUp className="text-lg" />
+      <span>Income</span>
+    </NavLink>
+  </li>
 
-          <li className="p-3 rounded hover:bg-gray-700 cursor-pointer">
-            <NavLink to="/setting">Setting</NavLink>
-          </li>
+        <li>
+    <NavLink
+      to="/report"
+      className={({ isActive }) =>
+        `flex items-center gap-3 p-3 rounded-lg transition-all duration-200
+        ${
+          isActive
+            ? "bg-purple-600/20 text-purple-400 border-l-4 border-purple-500"
+            : "hover:bg-gray-800 text-gray-200"
+        }`
+      }
+    >
+      <HiOutlineChartBar className="text-xl" />
+      <span>Report</span>
+    </NavLink>
+        </li>
 
-          <li className="p-3 rounded hover:bg-red-600 cursor-pointer text-white">
-             <Logout />
-          </li>
-        </ul>
+  <li>
+    <NavLink
+      to="/setting"
+      className={({ isActive }) =>
+        `flex items-center gap-3 p-3 rounded-lg transition-all duration-200
+        ${
+          isActive
+            ? "bg-slate-600/20 text-slate-200 border-l-4 border-slate-400"
+            : "hover:bg-gray-800 text-gray-200"
+        }`
+      }
+    >
+      <IoSettingsOutline className="text-xl" />
+      <span>Setting</span>
+    </NavLink>
+  </li>
+
+  <li className="mt-6">
+    <div className="flex items-center gap-3 p-3 rounded-lg bg-red-600/20 hover:bg-red-600/40 text-red-400 cursor-pointer transition-all">
+      <RiLogoutCircleRLine className="text-xl" />
+      <Logout />
+    </div>
+  </li>
+
+</ul>
 
         <div className="absolute bottom-0 w-full border-t border-gray-700 p-4 text-center text-xs text-gray-400">
           © 2026 Expense Tracker
