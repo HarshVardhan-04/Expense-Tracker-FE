@@ -1,17 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 function Nav({ title = "Dashboard"}) {
-  const [user, setUser] = useState(null);
-
-useEffect(() => {
-    fetch("http://localhost:5000/api/user/me", {
-        credentials: "include"
-    })
-    .then(res => res.json())
-    .then(data => setUser(data));
-}, []);
-
+  const { user } = useAuth();
   return (
     <nav className="bg-gray-800 text-white shadow h-16 flex items-center justify-between px-6 lg:ml-0 mt-16 lg:mt-0">
       <h1 className="text-2xl font-bold">
