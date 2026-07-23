@@ -1,9 +1,3 @@
-# Frontend Developer Interview Preparation Guide 🚀
-**Project:** Personal Expense Tracker (`Expense-Tracker-FE`)  
-**Target Audience:** Intern / Junior Developer preparing for Frontend / React Developer Interviews  
-**Date:** July 24, 2026  
-
----
 
 ## 🎯 1. How to Present This Project in an Interview
 
