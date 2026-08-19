@@ -17,7 +17,7 @@ const handleFilter = async (type) => {
     }
 
     const response = await fetch(
-        `http://localhost:5000/api/filter/${type}`
+        `${import.meta.env.VITE_API_URL}/api/filter/${type}`
     );
 
     const data = await response.json();
@@ -32,7 +32,7 @@ const handleFilter = async (type) => {
         setSearchResults(transactions);
         return;
     }
-    const res = await fetch(`http://localhost:5000/api/search/${search}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/search/${search}`);
 
     const data = await res.json();
     setSearchResults(data);
@@ -49,7 +49,7 @@ const handleFilter = async (type) => {
     }
 
     try{
-      const res = await fetch(`http://localhost:5000/api/search/${id}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/search/${id}`);
       alert("Transaction Deleted successfully");
     }
     catch(err){

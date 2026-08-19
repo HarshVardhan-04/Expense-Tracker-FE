@@ -3,7 +3,7 @@ import React from 'react'
 function Logout() {
      const handleLogout = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/logout", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
                 method: "GET",
                 credentials: "include",
             });

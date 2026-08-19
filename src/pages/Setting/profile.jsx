@@ -12,7 +12,7 @@ function profile({open}) {
   const handleName = async () => {
     try {
         const response = await fetch(
-            "http://localhost:5000/api/update-name",
+            `${import.meta.env.VITE_API_URL}/api/update-name`,
             {
                 method: "PUT",
                 credentials: "include",
@@ -40,7 +40,7 @@ function profile({open}) {
         const handleEmail = async () => {
     try {
         const response = await fetch(
-            "http://localhost:5000/api/email",
+            `${import.meta.env.VITE_API_URL}/api/email`,
             {
                 method: "PUT",
                 credentials: "include",
