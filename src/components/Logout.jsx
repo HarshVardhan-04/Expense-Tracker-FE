@@ -1,23 +1,29 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from "react-router-dom";
+
+
 
 function Logout() {
-     const handleLogout = async () => {
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/logout`, {
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+    try {
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/api/logout`,
+            {
                 method: "GET",
-                credentials: "include",
-            });
+                credentials: "include"
+            }
+        );
 
-            const data = await response.json();
+        const data = await response.json();
 
-            alert(data.message);
-
-            navigate("/");
-        } catch (error) {
-            console.log(error);
-            alert("Logout Failed");
+        if (data.success) {
+            navigate("/login");
         }
-    };
+    } catch (error) {
+        console.log(error);
+    }
+};
   return (
     <div>
         <form onSubmit={handleLogout}>
